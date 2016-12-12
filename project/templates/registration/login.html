@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Авторизация</h1>
+
+    {% if user.is_authenticated %}
+        Что такое, {{ user.username }}? Вы же уже авторизорваны.
+        Впрочем, всегда можно <a href="{% url 'auth_logout' %}">выйти</a>.<br/><br/>
+    {% else %}
+
+        <form method="post" action="{% url 'auth_login' %}?next={% url 'index' %}">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "star" %} Отправить
+                </button>
+            {% endbuttons %}
+        </form>
+        <ul>
+            <li><a href="{% url 'registration_register' %}">Регистрация</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}

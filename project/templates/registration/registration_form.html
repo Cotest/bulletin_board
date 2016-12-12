@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <form method="post" action="{% url 'registration_register' %}">
+        {% csrf_token %}
+        {% bootstrap_field form.email %}
+        {% bootstrap_field form.password1 %}
+        {% bootstrap_field form.password2 %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Отправить
+            </button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% load static from staticfiles %}
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="ru">
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="cleartype" content="on">
+    <link rel="canonical" href="{{ request.path }}">
+
+    {% block viewport %}
+        <meta name="HandheldFriendly" content="True">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    {% endblock %}
+
+    {% block meta %}
+        <meta name="description" content="">
+        <title>Document</title>
+    {% endblock %}
+
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+{% endblock head %}
+{% block body %}
+<body>
+    <!-- ______________HEADER_________________ -->
+    {% block header %}
+        <a href="/">Главная</a>
+        {% if user.is_authenticated %}
+            Привет, {{ user.username }}!
+            <a href="{% url 'auth_logout' %}">выйти</a>
+        {% else %}
+            <a href="{% url 'auth_login' %}">Войти</a>
+            <a href="{% url 'registration_register' %}">Регистрация</a>
+        {% endif %}
+    {% endblock %}
+    <!-- _____________________________________ -->
+
+    <!-- _______________MAIN___________________ -->
+    {% block content %}
+    {% endblock %}
+    <!-- _____________________________________ -->
+
+    <!-- ______________FOOTER_________________ -->
+    {% block footer %}
+    {% endblock %}
+    <!-- _____________________________________ -->
+
+    {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        {% bootstrap_javascript %}
+        <script src="{% static 'js/jquery.pjax.js' %}"></script>
+        <script async src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
+</body>
+{% endblock %}
+</html>
